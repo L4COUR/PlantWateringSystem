@@ -127,9 +127,9 @@ void messageReceived(String &topic, String &payload) {
 - **I2C SDA** - there's a 10K pullup to VIN
 - **I2C SCL** - there's a 10K pullup to VIN
 
-<iframe src="https://shiftr.io/L4COUR/Shawn/embed?zoom=1" width="600" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
 Getting the values from the adafruit soil moisture sensor into the arduino and then sending it to a MQTT server (shiftr.io) and then back again to the console in order for it to control a relay-switch which would turn on the water pump.
+
+![](./media/Shiftrio_plantthirst&Temperature.png)
 
 **Problem encountered:** When using the Wemos board the digital pinouts on the board only sends out a tiny voltage below 3.3 volts which is not enough to control the 5 V relay that I have available. Potentially this could be solve using a step-up module converting the very low voltage to 5 V in order for it to succesfully control the water pump. However due to Corona-virus I cannot currently get my hands on this kind of module, and building it from the limited parts I have currently available seems like a task that would require a higher degree in electrical engineering.
 
