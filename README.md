@@ -188,7 +188,7 @@ In this setup I have chosen to adapt the setup to a ["peanut butter tree"](https
 
 ![](./media/Self-watering-system.gif)
 
-![](/Users/Pacour/Developer/PlantWateringSystem/media/20200315_183326.jpg)
+![](./media/20200315_183326.jpg)
 
 ## Source
 
