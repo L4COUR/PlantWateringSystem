@@ -196,5 +196,4 @@ In this setup I have chosen to adapt the setup to a ["peanut butter tree"](https
 
 - https://learn.adafruit.com/adafruit-stemma-soil-sensor-i2c-capacitive-moisture-sensor/pinouts
 - https://github.com/L4COUR/Shawn-The-Plant (AUHack2019-project inspiration)
-- https://github.com/256dpi/max-mqtt (connect w/ max/MSP)
 
