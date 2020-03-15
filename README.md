@@ -1,30 +1,39 @@
-# Shawn 3.0
+# House-Plant Watering System
 
-## Using the Wemos D1 board
+Using the [Adafruit STEMMA Soil Sensor - I2C Capacitive Moisture Sensor](https://learn.adafruit.com/adafruit-stemma-soil-sensor-i2c-capacitive-moisture-sensor/overview) we are able to measure how moist the house plants soil is, aswell as the temperature. In this guide I will present two ways of making this system. The first way will be through a wireless Wemos D1 board using MQTT protocol through Shiftr.io MQTT Broker. The Second way will be a simpler and offline system using the standard Arduino Uno. Both of these setups has pros and cons in regard to complexity and features possible. This projekt is not just about throwing a few components together and forget about your plants, rather this project aims to understand how adapting the electronics to the specific needs of your house-plant.
+
+Through the years I have been interested in self-watering plant systems. I tried to make one in 2019 during the AUHack hackathon, however this version was not inteded to be fully function but work as a proof of concept for a larger project idea. Since then I have done a lot of research and I found that a lot of the self-watering plant kits you can buy online or watch people build on youtube is very focused on just the electronic side, and not acknowledging what the plant needs. I am by no means saying that this repo is perfekt in this regard but I really want to make this repo as much about plants as it is about the system and the possibilities this gives for exstracting data for other purposes.
+
+![](https://cdn-learn.adafruit.com/assets/assets/000/065/926/large1024/adafruit_products_front.jpg?1542236082)
+
+- **GND** - power and logic ground
+- **VIN** - 3-5V DC (use the same power voltage as you would for I2C logic)
+- **I2C SDA** - there's a 10K pullup to VIN
+- **I2C SCL** - there's a 10K pullup to VIN
+
+## Wireless Approach: Plant watering using ESP8266 Wemos D1
+
+![](https://i.pinimg.com/originals/35/4a/36/354a360e1a2e069cc9881bcf30550b5e.png)
+
+- **D1** = I2C SCL
+- **D2** = I2C SDA
+- **3v3** = Vin
+- **G** = GND
+
+First we need to connect the wemos d1 and the soil moisture sensor to each other. 
 
 ```c
-// This example uses an Adafruit Huzzah ESP8266
-// to connect to shiftr.io.
-//
-// You can check on your device after a successful
-// connection here: https://shiftr.io/try.
-//
-// by Joël Gähwiler
-// https://github.com/256dpi/arduino-mqtt
-
-
-
-//Inkluderer de anvendte libraries
+//libraries
 #include <ESP8266WiFi.h>
 #include <MQTTClient.h>
 #include "Adafruit_seesaw.h"
 
 Adafruit_seesaw ss;
 
-// indtast wifi navn
-const char ssid[] = "Prastestrade5";
-// indtast wifi kode
-const char pass[] = "44193150";
+// wifi name
+const char ssid[] = "INSERT WIFI NAME";
+// wifi code
+const char pass[] = "INSERT WIFI CODE";
 
 // indtast 'key/username' fra shiftr
 const char key[] = "PlantFeeling";
@@ -113,20 +122,6 @@ void messageReceived(String &topic, String &payload) {
 }
 ```
 
-![](https://i.pinimg.com/originals/35/4a/36/354a360e1a2e069cc9881bcf30550b5e.png)
-
-- D1 = SCL
-- D2 = SDA
-- VIN = 3.3 v
-- GND = G
-
-![](https://cdn-learn.adafruit.com/assets/assets/000/065/926/large1024/adafruit_products_front.jpg?1542236082)
-
-- **GND** - power and logic ground
-- **VIN** - 3-5V DC (use the same power voltage as you would for I2C logic)
-- **I2C SDA** - there's a 10K pullup to VIN
-- **I2C SCL** - there's a 10K pullup to VIN
-
 Getting the values from the adafruit soil moisture sensor into the arduino and then sending it to a MQTT server (shiftr.io) and then back again to the console in order for it to control a relay-switch which would turn on the water pump.
 
 ![](./media/Shiftrio_plantthirst&Temperature.png)
@@ -137,7 +132,7 @@ Getting the values from the adafruit soil moisture sensor into the arduino and t
 
 ## Offline Circuit for automatic plantwatering system
 
-the benefit of creating a circuit offline is that we dont need to use the Wemos D1 board, but can instead use an old school Arduino Uno which has a higher pinout voltage enabling us to control the 5 volt relay without using step-up converters.
+The benefit of creating a circuit offline is that we don't need to use the Wemos D1 board, but can instead use an old school Arduino Uno, which has a higher pinout voltage enabling us to control the 5 volt relay without using any step-up converters.
 
 ![](https://images.prismic.io/circuito/e57c56f68189f03145726786306d6a8ca7168571_arduino-uno-pinout-digital-pins-pwm-1.png?auto=compress,format)
 
@@ -186,5 +181,6 @@ void loop() {
 ## Source
 
 - https://learn.adafruit.com/adafruit-stemma-soil-sensor-i2c-capacitive-moisture-sensor/pinouts
+- https://github.com/L4COUR/Shawn-The-Plant (AUHack2019-project inspiration)
 - https://github.com/256dpi/max-mqtt (connect w/ max/MSP)
 
