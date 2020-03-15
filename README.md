@@ -35,11 +35,10 @@ const char ssid[] = "INSERT WIFI NAME";
 // wifi code
 const char pass[] = "INSERT WIFI CODE";
 
-// indtast 'key/username' fra shiftr
+// Insert 'key/username' from shiftr
 const char key[] = "PlantFeeling";
-// indtast secret/password fra shiftr
+// Insert secret/password frrom shiftr
 const char secret[] = "372575487ca8b282";
-// Deklarere variabler til MQTT og Net (Vi bruger til at forbinde til internettet og bruge mqtt)
 
 WiFiClient net;
 MQTTClient client;
@@ -48,12 +47,9 @@ void connect();
 
 void setup() {
   Serial.begin(115200);
-  // Her starter vi WIFI og client
   WiFi.begin(ssid, pass);
   client.begin("broker.shiftr.io", net);
-  // når clienten modtager en besked, skal den sende beskeden videre til funktionen 8messageReceived)
   client.onMessage(messageReceived);
- // Forbinder til wifi og broker
   connect();
 
 //Soil-moisture sensor
@@ -66,7 +62,7 @@ void setup() {
   }
   
 }
-// Tjekker Wifi-status (skriver '...' indtil ESP'en er forbundet)
+// Checking Wifi-status
 void connect() {
   Serial.print("checking wifi...");
   while (WiFi.status() != WL_CONNECTED) {
@@ -75,14 +71,12 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  // når klienten er forbundet giver den klient navn+usr+token
   while (!client.connect("Plant", key, secret)){
     Serial.print(".");
     delay(1000);
   }
-// Skriver serielt når der er forbundet til internettet og broker
   Serial.println("\nconnected!");
-//Forbinder til den adresse som der skal læses beskeder fra
+  
   client.subscribe("/PlantThirst");
   client.subscribe("/Temperature");
 }
@@ -101,16 +95,13 @@ void loop() {
   uint16_t capread = ss.touchRead(0);
   String stringCapread = String(capread);
   
-  // Skriver på adressen(topic)  og sender beskeden(message)
   publishMessage("PlantThirst", stringCapread);
   publishMessage("Temperature", stringtempC);
   delay(500);
 }
-//Deklarere funktionen for at sende beskeden til (topic,message)
 void publishMessage(String topic, String message){
   client.publish(topic, message);
 }
-// læser beskeder fra de subscribede topics (adresser)
 void messageReceived(String &topic, String &payload) {
   Serial.println("incoming: " + topic + " - " + payload);
   if (topic=="/PlantThirst") {
