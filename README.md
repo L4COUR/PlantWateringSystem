@@ -2,6 +2,8 @@
 
 Using the [Adafruit STEMMA Soil Sensor - I2C Capacitive Moisture Sensor](https://learn.adafruit.com/adafruit-stemma-soil-sensor-i2c-capacitive-moisture-sensor/overview) we are able to measure how moist the house plants soil is, aswell as the temperature. In this guide I will present two ways of making this system. The first way will be through a wireless Wemos D1 board using MQTT protocol through Shiftr.io MQTT Broker. The Second way will be a simpler and offline system using the standard Arduino Uno. Both of these setups has pros and cons in regard to complexity and features possible. This projekt is not just about throwing a few components together and forget about your plants, rather this project aims to understand how adapting the electronics to the specific needs of your house-plant.
 
+![](./media/20200315_183308.jpg)
+
 Through the years I have been interested in self-watering plant systems. I tried to make one in 2019 during the AUHack hackathon, however this version was not inteded to be fully function but work as a proof of concept for a larger project idea. Since then I have done a lot of research and I found that a lot of the self-watering plant kits you can buy online or watch people build on youtube is very focused on just the electronic side, and not acknowledging what the plant needs. I am by no means saying that this repo is perfekt in this regard but I really want to make this repo as much about plants as it is about the system and the possibilities this gives for exstracting data for other purposes.
 
 ![](https://cdn-learn.adafruit.com/assets/assets/000/065/926/large1024/adafruit_products_front.jpg?1542236082)
